@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Image } from "../../images/entities/image.entity";
 
 @Entity()
 export class Ingredient {
@@ -11,4 +12,13 @@ export class Ingredient {
         }
     )
     name:string
+
+    @OneToMany(
+        () => Image,
+        (image) => image.ingredient,{
+            cascade: true,
+            eager: true
+        }
+    )
+    images?: Image[];
 }
